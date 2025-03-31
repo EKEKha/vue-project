@@ -11,7 +11,9 @@
     "axios": "^1.8.4",
     "core-js": "^3.8.3",
     "save": "^2.9.0",
-    "vue": "^3.2.13"
+    "vue": "^3.2.13",
+    "vue-router": "^4.5.0",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -35,7 +37,8 @@
       "parser": "@babel/eslint-parser"
     },
     "rules": {
-      "eslint-plugin-vue/multi-word-component-names" : 0
+      "eslint-plugin-vue/multi-word-component-names": 0,
+      "vue/multi-word-component-names": "off"
     }
   },
   "browserslist": [

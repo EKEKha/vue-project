@@ -1,17 +1,45 @@
 <template>
   <app-header/>
-  <home/>
+  <RouterView/>
   <app-footer/>
 </template>
 
 <script>
 import AppFooter from './components/AppFooter.vue'
 import AppHeader from './components/AppHeader.vue'
-import Home from './components/pages/Home.vue'
+import store from "@/scripts/sotre";
+import axios from "axios";
+import {useRoute} from "vue-router";
+import {watch} from "vue";
 
 export default {
-  components: { AppFooter, AppHeader, Home },
+  components: { AppFooter, AppHeader },
   name: 'App',
+
+  setup(){
+
+    const check =() => {
+      axios.get("/api/account/check").then(({data}) => {
+        console.log(data);
+        store.commit("setAccount",data || 0);
+
+      })
+    }
+
+
+    // const id = sessionStorage.getItem("id"); //세션에 저장할 경우
+    //
+    // if(id){
+    //   store.commit("setAccount",id);
+    // }
+
+    const route = useRoute(); //url 정보를 가져와서
+
+    watch(route, () => { // url이 바뀔때마다 감시
+      check();
+    })
+
+  }
 
 }
 </script>
