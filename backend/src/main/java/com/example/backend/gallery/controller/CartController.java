@@ -8,10 +8,7 @@ import com.example.backend.gallery.repository.ItemRepository;
 import com.example.backend.gallery.service.JwtService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -52,7 +49,7 @@ public class CartController {
 
     
     /*장바구니에 담기*/
-    @GetMapping("/api/cart/items/{itemId}")
+    @PostMapping("/api/cart/items/{itemId}")
     public ResponseEntity<Item> pushCartItem (@PathVariable("itemId") int itemId,
                                     @CookieValue(value = "token" , required = false) String token)
     {
