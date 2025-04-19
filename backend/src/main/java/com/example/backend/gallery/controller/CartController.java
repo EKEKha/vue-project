@@ -50,7 +50,7 @@ public class CartController {
     
     /*장바구니에 담기*/
     @PostMapping("/api/cart/items/{itemId}")
-    public ResponseEntity<Item> pushCartItem (@PathVariable("itemId") int itemId,
+    public ResponseEntity pushCartItem (@PathVariable("itemId") int itemId,
                                     @CookieValue(value = "token" , required = false) String token)
     {
 
@@ -81,5 +81,35 @@ public class CartController {
 
 
     }
+
+
+    /*장바구니에 담기*/
+    @DeleteMapping("/api/cart/items/{itemId}")
+    public ResponseEntity removeCartItem (@PathVariable("itemId") int itemId,
+                                              @CookieValue(value = "token" , required = false) String token)
+    {
+
+
+        if(!jwtService.isValidToken(token)){
+
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid token");
+        }
+
+        int memberId = jwtService.getId(token);
+
+        Cart cart =
+                cartRepository.findByMemberIdAndItemId(memberId ,itemId);
+
+
+        cartRepository.delete(cart);
+
+
+        return new ResponseEntity<>(HttpStatus.OK);
+
+
+
+    }
+
+
 
 }

@@ -72,7 +72,7 @@ public class JwtServiceImpl implements JwtService{
         Claims claims = this.getClaims(token);
 
         if(claims != null ){
-            return Integer.parseInt(claims.getId().toString());
+            return Integer.parseInt(claims.get("id").toString());
         }
 
         return 0;
